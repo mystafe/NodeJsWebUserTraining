@@ -1,6 +1,5 @@
 //AlohaUser01
 //AlohaUser01
-const { Console } = require('console');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -25,6 +24,7 @@ const ContactSchema = new mongoose.Schema({
 });
 
 const Contact = mongoose.model('Contact', ContactSchema);
+
 
 
 const app = express();
@@ -54,21 +54,24 @@ app.get('/webusers', (req, res) => {
              const contactNew=contacts.map(c=>({         
                 title:c.title,
                 message:c.message,
-                webuserFullname:c.webUserId.name+' '+ c.webUserId.surname   
-            }));return   contactNew;})
+                //webuserFullname:c.webUserId.name+' '+ c.webUserId.surname   
+                webusefullname:c.webUserId?.name
 
-    .then(a=> {rs.json(a)})
+            }));
+            return   contactNew;
+        })
+    .then(contactNew=> {rs.json(contactNew)})
 
-    .catch(error => {
-        rs.status(500).json({ error: 'Failed to retrieve contacts' });
+    .catch(err => {
+        rs.status(500).json({ error: err.message+'Failed to retrieve contacts' });
       });
-
  });
  
 
  app.post('/webusers',(req,res)=>{
     const {name,surname,email='',address=''}=req.body;
-    const newWebuser=new WebUser({name,surname,email,address});
+    const newWebuser=new WebUser(
+        {name,surname,email,address});
     newWebuser.save().then(x=>res.json(x))
     .catch(error => {
         res.status(500).json({ error: 'Failed to save web user' });
@@ -76,32 +79,52 @@ app.get('/webusers', (req, res) => {
  })
 
  app.delete(`/webusers/:id`,(rq,rs)=>{
-
     const id=rq.params.id;
-
     WebUser.findByIdAndDelete(id)
     .then(deleteduser=>{
         if(!deleteduser)
-        {
             return rs.status(404).json('User is not found');
-        }
-        rs.status(201).json({ deleteduser: 'user is deleted'});
-        
+        rs.status(201).json({ deleteduser: 'user is deleted'});    
     })
-    .catch(error => {
-        rs.status(500).json({ error: 'Failed to delete WebUser' });
+    .catch(err => {
+        rs.status(500).json({ error: err.message+' Failed to delete WebUser' });
       });
  })
 
   
+ app.post('/contacts',(rq,rs)=>{
 
+    const {title='',message='',webUserId}=rq.body;
+
+    const NewContact=new Contact({
+        title,
+        message,
+        webUserId
+    })
+
+    NewContact.save().then(contact => rs.json({'status':'Ok', ticket: contact.id}))
+    .catch(err=>{
+        rs.status(500).json(err.message)
+    })
+
+ })
+
+ app.delete(`/contacts/:id`,(rq,rs)=>{
+    
+    const id=rq.params.id;
+    Contact.findByIdAndDelete(id)
+    .then(result=>{
+        if(!result)
+            return rs.status(404).json('Contact is not found');
+        rs.status(201).json({ result: result.id+' is deleted'});    
+    })
+    .catch(err => {
+        rs.status(500).json({ error: err.message+' Failed to delete WebUser' });
+      });
+ })
+ 
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Welcome to webuser training Aloha User on port ${port}`);
 });
-
-
-//test
-
-//test2
