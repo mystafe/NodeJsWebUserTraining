@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles.css">
+
+    <%- include('partials/navbar') %>
+
+  <title>User List</title>
+</head>
+<body>
+  <h1>User List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user._id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.surname %></td>
+          <td><%= user.email %></td>
+          <td><%= user.address %></td>
+          <td>
+        
+            <form action="/webuser/<%= user._id %>?_method=DELETE" method="POST">
+                <button class="delete-button" type="submit">Delete</button>
+              </form>
+        </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
+
+
+
+
+

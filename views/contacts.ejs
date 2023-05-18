@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="/styles.css">
+
+   <%- include('partials/navbar') %>
+  <title>Contact List</title>
+
+</head>
+<body>
+  <h1>Contact List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Delete</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% contacts.forEach(contact => { %>
+        <tr>
+          <td><%= contact._id %></td>
+          <td><%= contact.title %></td>
+          <td><%= contact.message %></td>
+          <td><%= contact.name %></td>
+          <td><%= contact.surname %></td>
+          <td>
+        
+            <form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
+                <button class="delete-button" type="submit">Delete</button>
+              </form>
+        </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    
+    , initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+
+    <title>Add User</title>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    
+    <h2>Add Web User</h2>
+
+<form action="/contact" method="POST">
+  <div class="form-group">
+
+    <label for="webUserId">WebUser</label>
+    <select id="webUserId" name="webUserId" required>
+      <option value="">Select a WebUser</option>
+
+      <% webusers.forEach(webuser => { %>
+        <option value="<%= webuser._id %>"><%= webuser.name %> <%= webuser.surname %></option>
+
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" required>
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+  </div>
+  <button class="button" type="submit">Add</button>
+</form>
+
+</body>
+</html>
+
+
+
+  
