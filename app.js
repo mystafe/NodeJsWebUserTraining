@@ -20,19 +20,7 @@ const WebUserSchema = new mongoose.Schema({
 
 
 
-// Pre-hook for deleteOne method
-WebUserSchema.pre('deleteOne', { document: true }, function (next) {
-  const webUserId = this._id;
-
-  // Delete all contacts referencing this web user
-  Contact.deleteMany({ webUserId }, (err) => {
-    if (err) {
-      return next(err);
-    }
-    next();
-  });
-});
-
+/
 const WebUser = mongoose.model('WebUser', WebUserSchema);
 
 
@@ -45,6 +33,18 @@ const ContactSchema = new mongoose.Schema({
 
 const Contact = mongoose.model('Contact', ContactSchema);
 
+/ Pre-hook for deleteOne method
+WebUserSchema.pre('deleteOne', { document: true }, function (next) {
+  const webUserId = this._id;
+
+  // Delete all contacts referencing this web user
+  Contact.deleteMany({ webUserId }, (err) => {
+    if (err) {
+      return next(err);
+    }
+    next();
+  });
+});
 
 
 const app = express();
