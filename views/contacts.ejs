@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-  <link rel="stylesheet" href="/styles.css">
-
+  <link rel="stylesheet" href="/styles/styles.css">
    <%- include('partials/navbar') %>
   <title>Contact List</title>
 
@@ -18,6 +16,7 @@
         <th>Message</th>
         <th>Name</th>
         <th>Surname</th>
+        <th>Update</th>
         <th>Delete</th>
         
       </tr>
@@ -31,11 +30,15 @@
           <td><%= contact.name %></td>
           <td><%= contact.surname %></td>
           <td>
-        
-            <form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
-                <button class="delete-button" type="submit">Delete</button>
+            <form action="/add-contact/<%=contact._id%>" method="get">
+                <button class="update-button" type="submit">🔨</button>
               </form>
         </td>
+        <td> 
+          <form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
+              <button class="delete-button" type="submit">🗑️</button>
+            </form>
+      </td>
         </tr>
       <% }); %>
     </tbody>

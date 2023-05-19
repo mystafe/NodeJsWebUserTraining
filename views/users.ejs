@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/styles.css">
-
+  <link rel="stylesheet" href="/styles/styles.css">
     <%- include('partials/navbar') %>
 
   <title>User List</title>
@@ -17,6 +16,7 @@
         <th>Surname</th>
         <th>Email</th>
         <th>Address</th>
+        <th>Update</th>
         <th>Delete</th>
       </tr>
     </thead>
@@ -29,9 +29,13 @@
           <td><%= user.email %></td>
           <td><%= user.address %></td>
           <td>
-        
+            <form action="/add-user/<%= user._id %>?_method=Get" method="Get">
+              <button class="update-button" type="submit">🔨</button>
+            </form>
+          </td>
+          <td>
             <form action="/webuser/<%= user._id %>?_method=DELETE" method="POST">
-                <button class="delete-button" type="submit">Delete</button>
+                <button class="delete-button" type="submit">🗑️</button>
               </form>
         </td>
         </tr>

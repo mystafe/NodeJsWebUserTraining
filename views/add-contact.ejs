@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=
     
     , initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
     <title>Add User</title>
 </head>
@@ -21,20 +21,35 @@
     <label for="webUserId">WebUser</label>
     <select id="webUserId" name="webUserId" required>
       <option value="">Select a WebUser</option>
-
       <% webusers.forEach(webuser => { %>
-        <option value="<%= webuser._id %>"><%= webuser.name %> <%= webuser.surname %></option>
+        <option
 
+        <% if (contact.webUserId!=null) { %>
+
+          <% if (contact.webUserId._id==webuser.id) { %>
+            selected
+           <% } %>
+   
+         
+        <% } %>
+
+        value="<%= webuser._id %>"><%= webuser.name %> <%= webuser.surname%></option>    
       <% }) %>
     </select>
   </div>
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" id="title" name="title" required>
+    <input type="text" id="title" name="title" 
+    <% if (contact  ) { %>
+      value="<%=contact.title%>"
+<% } %>
+     required>
   </div>
   <div class="form-group">
     <label for="message">Message</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
+    <textarea id="message" name="message" rows="4"
+required>
+<% if (contact) { %><%=contact.message%><%}%></textarea>
   </div>
   <button class="button" type="submit">Add</button>
 </form>

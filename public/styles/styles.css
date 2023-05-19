@@ -143,7 +143,7 @@ button[type="submit"]:hover {
 
 /* Main page background image */
 body{
-  background-image: url('https://i.redd.it/7ckptvro8l541.jpg');
+  background-image: url('../images/istanbullwallpaper.jpeg');
   background-size:cover;
   background-position: center;
 
@@ -159,4 +159,10 @@ body{
 .navbar {
   background-color: transparent;
   padding: 10px;
+}
+.update-button{
+  background-color: rgb(33, 104, 68) !important;
+}
+.delete-button{
+  background-color: rgb(151, 38, 42) !important;
 }
